@@ -37,10 +37,10 @@ module Sidekiq
     def route(method, path, &block)
       @routes ||= { GET => [], POST => [], PUT => [], PATCH => [], DELETE => [], HEAD => [] }
       
-      path = ENV['SIDEKIQ_PATH'] << path
+      new_path = ENV['SIDEKIQ_PATH'] << path
 
-      @routes[method] << WebRoute.new(method, path, block)
-      @routes[HEAD] << WebRoute.new(method, path, block) if method == GET
+      @routes[method] << WebRoute.new(method, new_path, block)
+      @routes[HEAD] << WebRoute.new(method, new_path, block) if method == GET
     end
 
     def match(env)
