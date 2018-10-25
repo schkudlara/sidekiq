@@ -47,7 +47,7 @@ module Sidekiq
 
       # There are servers which send an empty string when requesting the root.
       # These servers should be ashamed of themselves.
-      path_info = "/api/v1/connectors/sidekiq" if path_info == ""
+      path_info = "/" if path_info == ""
 
       @routes[request_method].each do |route|
         if params = route.match(request_method, path_info)
